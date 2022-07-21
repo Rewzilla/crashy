@@ -7,7 +7,8 @@
 
 #define VERSION 1.00
 #define HEADER_MAGIC 0xdec001c0
-#define MAX_STR_LEN 0x20
+#define MIN_STR_LEN 0
+#define MAX_STR_LEN 32
 
 enum type {
 	TYPE_INT	= 0x01,
@@ -34,7 +35,7 @@ char *parse_string(char *data, int len) {
 
 	str = malloc(len * sizeof(char));
 
-	if (!str || len > MAX_STR_LEN) {
+	if (!str || len < MIN_STR_LEN || len > MAX_STR_LEN) {
 		return strdup("(invalid)");
 	}
 
