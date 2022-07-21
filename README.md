@@ -7,7 +7,7 @@ a toy program for fuzzing
 
 Crashy can by built by simply running:
 
-	`make`
+	make
 
 This will produce a binary called 'crashy'
 in the current directory.
@@ -29,7 +29,7 @@ and strings stored within.
 
 Crashy should be run like this:
 
-	`./crashy <inputfile>`
+	./crashy <inputfile>
 
 
 ## Author
