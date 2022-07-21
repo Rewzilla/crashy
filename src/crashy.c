@@ -30,7 +30,6 @@ char parse_char(char *data) {
 
 char *parse_string(char *data, int len) {
 
-	int i;
 	char *str;
 
 	str = malloc(len * sizeof(char));
@@ -39,8 +38,7 @@ char *parse_string(char *data, int len) {
 		return strdup("(invalid)");
 	}
 
-	for (i=0; data[i]!='\x00'; i++)
-		str[i] = data[i];
+	strcpy(str, data);
 
 	return str;
 
@@ -51,6 +49,11 @@ void parse(char *data, int len) {
 	unsigned char type;
 	int header, sz, ptr, tmp_int;
 	char tmp_char, *tmp_string;
+
+	if (len < 4) {
+		fprintf(stderr, "Invalid data file\n");
+		return;
+	}
 
 	ptr = 0;
 
@@ -69,31 +72,61 @@ void parse(char *data, int len) {
 		switch(type) {
 
 			case TYPE_INT:
+
+				if (len < (ptr + sizeof(int))) {
+					fprintf(stderr, "Invalid entry\n");
+					return;
+				}
+
 				tmp_int = parse_int(data + ptr);
 				ptr += sizeof(int);
 				printf("i: 0x%08x\n", tmp_int);
+
 				break;
 
 			case TYPE_CHAR:
+
+				if (len < (ptr + sizeof(char))) {
+					fprintf(stderr, "Invalid entry\n");
+					return;
+				}
+
 				tmp_char = parse_char(data);
 				ptr += sizeof(char);
 				printf("c: 0x%02x\n", tmp_char);
+
 				break;
 
 			case TYPE_STRING:
+
+				if (len < (ptr + sizeof(int))) {
+					fprintf(stderr, "Invalid entry\n");
+					return;
+				}
+
 				sz = parse_int(data + ptr);
 				ptr += sizeof(int);
+
+				if (len < (ptr + sz)) {
+					fprintf(stderr, "Invalid entry\n");
+					return;
+				}
+
 				tmp_string = parse_string(data + ptr, sz);
 				printf("s: %s\n", tmp_string);
 				free(tmp_string);
 				ptr += len;
+
 				break;
 
 			case TYPE_END:
+
 				return;
 
 			default:
+
 				fprintf(stderr, "Unknown data type '%c'\n", type);
+
 				return;
 
 		}
