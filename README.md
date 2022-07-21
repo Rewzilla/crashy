@@ -29,7 +29,7 @@ and strings stored within.
 
 Crashy should be run like this:
 
-	./crashy <inputfile>
+	./crashy.bin <inputfile>
 
 
 ## Author
