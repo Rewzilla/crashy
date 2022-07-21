@@ -7,7 +7,7 @@
 
 #define VERSION 1.00
 #define HEADER_MAGIC 0xdec001c0
-#define MIN_STR_LEN 0
+#define MIN_STR_LEN 1
 #define MAX_STR_LEN 32
 
 enum type {
