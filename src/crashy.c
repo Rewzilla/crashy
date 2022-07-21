@@ -33,9 +33,13 @@ char *parse_string(char *data, int len) {
 
 	char *str;
 
+	if (len < MIN_STR_LEN || len > MAX_STR_LEN) {
+		return strdup("(invalid)");
+	}
+
 	str = malloc(len * sizeof(char));
 
-	if (!str || len < MIN_STR_LEN || len > MAX_STR_LEN) {
+	if (!str) {
 		return strdup("(invalid)");
 	}
 
