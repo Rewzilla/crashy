@@ -96,9 +96,9 @@ void parse(char *data, int len) {
 					return;
 				}
 
-				tmp_char = parse_char(data);
+				tmp_char = parse_char(data + ptr);
 				ptr += sizeof(char);
-				printf("c: 0x%02x\n", tmp_char);
+				printf("c: 0x%02hhx\n", tmp_char);
 
 				break;
 
@@ -120,7 +120,7 @@ void parse(char *data, int len) {
 				tmp_string = parse_string(data + ptr, sz);
 				printf("s: %s\n", tmp_string);
 				free(tmp_string);
-				ptr += len;
+				ptr += sz;
 
 				break;
 
