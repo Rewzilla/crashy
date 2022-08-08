@@ -112,7 +112,7 @@ void parse(char *data, int len) {
 				sz = parse_int(data + ptr);
 				ptr += sizeof(int);
 
-				if (len < (ptr + sz)) {
+				if (sz < 0 || len < (ptr + sz)) {
 					fprintf(stderr, "Invalid entry\n");
 					return;
 				}
