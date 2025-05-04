@@ -44,6 +44,8 @@ int main(int argc, char *argv[]) {
 
 	parse(data, len);
 
+	free(data);
+
 	close(fd);
 
 	return 0;
